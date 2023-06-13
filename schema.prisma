@@ -27,6 +27,7 @@ model Post {
   author   User?   @relation("Post_author", fields: [authorId], references: [id])
   authorId String? @map("author")
   tags     Tag[]   @relation("Post_tags")
+  status   String? @default("draft")
 
   @@index([authorId])
 }

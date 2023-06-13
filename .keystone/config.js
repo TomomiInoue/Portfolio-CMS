@@ -44,8 +44,6 @@ var lists = {
       name: (0, import_fields.text)({ validation: { isRequired: true } }),
       email: (0, import_fields.text)({
         validation: { isRequired: true },
-        // by adding isIndexed: 'unique', we're saying that no user can have the same
-        // email as another user - this may or may not be a good idea for your project
         isIndexed: "unique"
       }),
       password: (0, import_fields.password)({ validation: { isRequired: true } }),
@@ -112,6 +110,14 @@ var lists = {
           inlineConnect: true,
           inlineCreate: { fields: ["name"] }
         }
+      }),
+      status: (0, import_fields.select)({
+        options: [
+          { label: "Published", value: "published" },
+          { label: "Draft", value: "Draft" }
+        ],
+        defaultValue: "draft",
+        ui: { displayMode: "segmented-control" }
       })
     }
   }),
@@ -179,6 +185,7 @@ var keystone_default = withAuth(
       url: "file:./keystone.db"
     },
     lists,
-    session
+    session,
+    ui: { isAccessAllowed: (context) => !!context.session?.data }
   })
 );

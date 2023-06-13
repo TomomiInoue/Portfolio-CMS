@@ -141,6 +141,7 @@ type Post {
   author: User
   tags(where: TagWhereInput! = {}, orderBy: [TagOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: TagWhereUniqueInput): [Tag!]
   tagsCount(where: TagWhereInput! = {}): Int
+  status: String
 }
 
 type Post_content_Document {
@@ -159,6 +160,7 @@ input PostWhereInput {
   title: StringFilter
   author: UserWhereInput
   tags: TagManyRelationFilter
+  status: StringNullableFilter
 }
 
 input TagManyRelationFilter {
@@ -167,9 +169,24 @@ input TagManyRelationFilter {
   none: TagWhereInput
 }
 
+input StringNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: StringNullableFilter
+}
+
 input PostOrderByInput {
   id: OrderDirection
   title: OrderDirection
+  status: OrderDirection
 }
 
 input PostUpdateInput {
@@ -177,6 +194,7 @@ input PostUpdateInput {
   content: JSON
   author: UserRelateToOneForUpdateInput
   tags: TagRelateToManyForUpdateInput
+  status: String
 }
 
 input UserRelateToOneForUpdateInput {
@@ -202,6 +220,7 @@ input PostCreateInput {
   content: JSON
   author: UserRelateToOneForCreateInput
   tags: TagRelateToManyForCreateInput
+  status: String
 }
 
 input UserRelateToOneForCreateInput {
