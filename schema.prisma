@@ -37,3 +37,12 @@ model Tag {
   name  String @default("")
   posts Post[] @relation("Post_tags")
 }
+
+model Experience {
+  id       String @id @default(cuid())
+  company  String @default("")
+  position String @default("")
+  period   String @default("")
+  body     String @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+  tech     String @default("")
+}

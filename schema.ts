@@ -1,12 +1,6 @@
-// Welcome to your schema
-//   Schema driven development is Keystone's modus operandi
-//
-// This file is where we define the lists, fields and hooks for our data.
-// If you want to learn more about how lists are configured, please read
-// - https://keystonejs.com/docs/config/lists
-
 import { list } from "@keystone-6/core";
 import { allowAll } from "@keystone-6/core/access";
+import Experience from "./schemas/experience";
 
 // see https://keystonejs.com/docs/fields/overview for the full list of fields
 //   this is a few common fields for an example
@@ -25,6 +19,7 @@ import { document } from "@keystone-6/fields-document";
 // when using Typescript, you can refine your types to a stricter subset by importing
 // the generated types from '.keystone/types'
 import type { Lists } from ".keystone/types";
+import experience from "./schemas/experience";
 
 export const lists: Lists = {
   User: list({
@@ -150,4 +145,5 @@ export const lists: Lists = {
       posts: relationship({ ref: "Post.tags", many: true }),
     },
   }),
+  Experience,
 };

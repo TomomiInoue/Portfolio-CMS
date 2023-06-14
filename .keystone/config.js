@@ -23,51 +23,76 @@ __export(keystone_exports, {
   default: () => keystone_default
 });
 module.exports = __toCommonJS(keystone_exports);
-var import_core2 = require("@keystone-6/core");
+var import_core3 = require("@keystone-6/core");
 
 // schema.ts
+var import_core2 = require("@keystone-6/core");
+var import_access2 = require("@keystone-6/core/access");
+
+// schemas/experience.ts
 var import_core = require("@keystone-6/core");
 var import_access = require("@keystone-6/core/access");
 var import_fields = require("@keystone-6/core/fields");
 var import_fields_document = require("@keystone-6/fields-document");
+var experience_default = (0, import_core.list)({
+  fields: {
+    company: (0, import_fields.text)({ validation: { isRequired: true } }),
+    position: (0, import_fields.text)({ validation: { isRequired: true } }),
+    period: (0, import_fields.text)({ validation: { isRequired: true } }),
+    body: (0, import_fields_document.document)({
+      formatting: true,
+      dividers: true,
+      layouts: [
+        [1, 1],
+        [1, 1, 1]
+      ]
+    }),
+    tech: (0, import_fields.text)({ validation: { isRequired: true } })
+  },
+  access: import_access.allowAll
+});
+
+// schema.ts
+var import_fields2 = require("@keystone-6/core/fields");
+var import_fields_document2 = require("@keystone-6/fields-document");
 var lists = {
-  User: (0, import_core.list)({
+  User: (0, import_core2.list)({
     // WARNING
     //   for this starter project, anyone can create, query, update and delete anything
     //   if you want to prevent random people on the internet from accessing your data,
     //   you can find out more at https://keystonejs.com/docs/guides/auth-and-access-control
-    access: import_access.allowAll,
+    access: import_access2.allowAll,
     // this is the fields for our User list
     fields: {
       // by adding isRequired, we enforce that every User should have a name
       //   if no name is provided, an error will be displayed
-      name: (0, import_fields.text)({ validation: { isRequired: true } }),
-      email: (0, import_fields.text)({
+      name: (0, import_fields2.text)({ validation: { isRequired: true } }),
+      email: (0, import_fields2.text)({
         validation: { isRequired: true },
         isIndexed: "unique"
       }),
-      password: (0, import_fields.password)({ validation: { isRequired: true } }),
+      password: (0, import_fields2.password)({ validation: { isRequired: true } }),
       // we can use this field to see what Posts this User has authored
       //   more on that in the Post list below
-      posts: (0, import_fields.relationship)({ ref: "Post.author", many: true }),
-      createdAt: (0, import_fields.timestamp)({
+      posts: (0, import_fields2.relationship)({ ref: "Post.author", many: true }),
+      createdAt: (0, import_fields2.timestamp)({
         // this sets the timestamp to Date.now() when the user is first created
         defaultValue: { kind: "now" }
       })
     }
   }),
-  Post: (0, import_core.list)({
+  Post: (0, import_core2.list)({
     // WARNING
     //   for this starter project, anyone can create, query, update and delete anything
     //   if you want to prevent random people on the internet from accessing your data,
     //   you can find out more at https://keystonejs.com/docs/guides/auth-and-access-control
-    access: import_access.allowAll,
+    access: import_access2.allowAll,
     // this is the fields for our Post list
     fields: {
-      title: (0, import_fields.text)({ validation: { isRequired: true } }),
+      title: (0, import_fields2.text)({ validation: { isRequired: true } }),
       // the document field can be used for making rich editable content
       //   you can find out more at https://keystonejs.com/docs/guides/document-fields
-      content: (0, import_fields_document.document)({
+      content: (0, import_fields_document2.document)({
         formatting: true,
         layouts: [
           [1, 1],
@@ -80,7 +105,7 @@ var lists = {
         dividers: true
       }),
       // with this field, you can set a User as the author for a Post
-      author: (0, import_fields.relationship)({
+      author: (0, import_fields2.relationship)({
         // we could have used 'User', but then the relationship would only be 1-way
         ref: "User.posts",
         // this is some customisations for changing how this will look in the AdminUI
@@ -96,7 +121,7 @@ var lists = {
         many: false
       }),
       // with this field, you can add some Tags to Posts
-      tags: (0, import_fields.relationship)({
+      tags: (0, import_fields2.relationship)({
         // we could have used 'Tag', but then the relationship would only be 1-way
         ref: "Tag.posts",
         // a Post can have many Tags, not just one
@@ -111,7 +136,7 @@ var lists = {
           inlineCreate: { fields: ["name"] }
         }
       }),
-      status: (0, import_fields.select)({
+      status: (0, import_fields2.select)({
         options: [
           { label: "Published", value: "published" },
           { label: "Draft", value: "Draft" }
@@ -122,23 +147,24 @@ var lists = {
     }
   }),
   // this last list is our Tag list, it only has a name field for now
-  Tag: (0, import_core.list)({
+  Tag: (0, import_core2.list)({
     // WARNING
     //   for this starter project, anyone can create, query, update and delete anything
     //   if you want to prevent random people on the internet from accessing your data,
     //   you can find out more at https://keystonejs.com/docs/guides/auth-and-access-control
-    access: import_access.allowAll,
+    access: import_access2.allowAll,
     // setting this to isHidden for the user interface prevents this list being visible in the Admin UI
     ui: {
       isHidden: true
     },
     // this is the fields for our Tag list
     fields: {
-      name: (0, import_fields.text)(),
+      name: (0, import_fields2.text)(),
       // this can be helpful to find out all the Posts associated with a Tag
-      posts: (0, import_fields.relationship)({ ref: "Post.tags", many: true })
+      posts: (0, import_fields2.relationship)({ ref: "Post.tags", many: true })
     }
-  })
+  }),
+  Experience: experience_default
 };
 
 // auth.ts
@@ -176,7 +202,10 @@ var session = (0, import_session.statelessSessions)({
 
 // keystone.ts
 var keystone_default = withAuth(
-  (0, import_core2.config)({
+  (0, import_core3.config)({
+    server: {
+      cors: { origin: ["http://localhost:3001"], credentials: true }
+    },
     db: {
       // we're using sqlite for the fastest startup experience
       //   for more information on what database might be appropriate for you
