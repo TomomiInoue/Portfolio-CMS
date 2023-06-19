@@ -1,6 +1,8 @@
 import { list } from "@keystone-6/core";
 import { allowAll } from "@keystone-6/core/access";
 import Experience from "./schemas/experience";
+import About from "./schemas/about";
+import RichText from "./schemas/richText";
 
 // see https://keystonejs.com/docs/fields/overview for the full list of fields
 //   this is a few common fields for an example
@@ -146,4 +148,6 @@ export const lists: Lists = {
     },
   }),
   Experience,
+  About,
+  RichText,
 };

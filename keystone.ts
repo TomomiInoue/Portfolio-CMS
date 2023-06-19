@@ -10,7 +10,7 @@ import { withAuth, session } from "./auth";
 export default withAuth(
   config({
     server: {
-      cors: { origin: ["http://localhost:3001"], credentials: true },
+      cors: { origin: ["http://localhost:4000"], credentials: true },
     },
     db: {
       // we're using sqlite for the fastest startup experience

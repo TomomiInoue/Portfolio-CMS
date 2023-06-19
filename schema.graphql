@@ -330,6 +330,88 @@ input ExperienceCreateInput {
   tech: String
 }
 
+type About {
+  id: ID!
+  bio: RichText
+}
+
+input AboutWhereUniqueInput {
+  id: ID
+}
+
+input AboutWhereInput {
+  AND: [AboutWhereInput!]
+  OR: [AboutWhereInput!]
+  NOT: [AboutWhereInput!]
+  id: IDFilter
+  bio: RichTextWhereInput
+}
+
+input AboutOrderByInput {
+  id: OrderDirection
+}
+
+input AboutUpdateInput {
+  bio: RichTextRelateToOneForUpdateInput
+}
+
+input RichTextRelateToOneForUpdateInput {
+  create: RichTextCreateInput
+  connect: RichTextWhereUniqueInput
+  disconnect: Boolean
+}
+
+input AboutUpdateArgs {
+  where: AboutWhereUniqueInput!
+  data: AboutUpdateInput!
+}
+
+input AboutCreateInput {
+  bio: RichTextRelateToOneForCreateInput
+}
+
+input RichTextRelateToOneForCreateInput {
+  create: RichTextCreateInput
+  connect: RichTextWhereUniqueInput
+}
+
+type RichText {
+  id: ID!
+  RichText: RichText_RichText_Document
+}
+
+type RichText_RichText_Document {
+  document(hydrateRelationships: Boolean! = false): JSON!
+}
+
+input RichTextWhereUniqueInput {
+  id: ID
+}
+
+input RichTextWhereInput {
+  AND: [RichTextWhereInput!]
+  OR: [RichTextWhereInput!]
+  NOT: [RichTextWhereInput!]
+  id: IDFilter
+}
+
+input RichTextOrderByInput {
+  id: OrderDirection
+}
+
+input RichTextUpdateInput {
+  RichText: JSON
+}
+
+input RichTextUpdateArgs {
+  where: RichTextWhereUniqueInput!
+  data: RichTextUpdateInput!
+}
+
+input RichTextCreateInput {
+  RichText: JSON
+}
+
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
@@ -360,6 +442,18 @@ type Mutation {
   updateExperiences(data: [ExperienceUpdateArgs!]!): [Experience]
   deleteExperience(where: ExperienceWhereUniqueInput!): Experience
   deleteExperiences(where: [ExperienceWhereUniqueInput!]!): [Experience]
+  createAbout(data: AboutCreateInput!): About
+  createAbouts(data: [AboutCreateInput!]!): [About]
+  updateAbout(where: AboutWhereUniqueInput!, data: AboutUpdateInput!): About
+  updateAbouts(data: [AboutUpdateArgs!]!): [About]
+  deleteAbout(where: AboutWhereUniqueInput!): About
+  deleteAbouts(where: [AboutWhereUniqueInput!]!): [About]
+  createRichText(data: RichTextCreateInput!): RichText
+  createRichTexts(data: [RichTextCreateInput!]!): [RichText]
+  updateRichText(where: RichTextWhereUniqueInput!, data: RichTextUpdateInput!): RichText
+  updateRichTexts(data: [RichTextUpdateArgs!]!): [RichText]
+  deleteRichText(where: RichTextWhereUniqueInput!): RichText
+  deleteRichTexts(where: [RichTextWhereUniqueInput!]!): [RichText]
   endSession: Boolean!
   authenticateUserWithPassword(email: String!, password: String!): UserAuthenticationWithPasswordResult
   createInitialUser(data: CreateInitialUserInput!): UserAuthenticationWithPasswordSuccess!
@@ -395,6 +489,12 @@ type Query {
   experiences(where: ExperienceWhereInput! = {}, orderBy: [ExperienceOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: ExperienceWhereUniqueInput): [Experience!]
   experience(where: ExperienceWhereUniqueInput!): Experience
   experiencesCount(where: ExperienceWhereInput! = {}): Int
+  abouts(where: AboutWhereInput! = {}, orderBy: [AboutOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: AboutWhereUniqueInput): [About!]
+  about(where: AboutWhereUniqueInput!): About
+  aboutsCount(where: AboutWhereInput! = {}): Int
+  richTexts(where: RichTextWhereInput! = {}, orderBy: [RichTextOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: RichTextWhereUniqueInput): [RichText!]
+  richText(where: RichTextWhereUniqueInput!): RichText
+  richTextsCount(where: RichTextWhereInput! = {}): Int
   keystone: KeystoneMeta!
   authenticatedItem: AuthenticatedItem
 }

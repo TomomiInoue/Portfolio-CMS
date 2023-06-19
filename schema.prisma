@@ -46,3 +46,17 @@ model Experience {
   body     String @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
   tech     String @default("")
 }
+
+model About {
+  id    String    @id @default(cuid())
+  bio   RichText? @relation("About_bio", fields: [bioId], references: [id])
+  bioId String?   @map("bio")
+
+  @@index([bioId])
+}
+
+model RichText {
+  id             String  @id @default(cuid())
+  RichText       String  @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+  from_About_bio About[] @relation("About_bio")
+}
