@@ -49,14 +49,14 @@ model Experience {
 
 model About {
   id    String    @id @default(cuid())
-  bio   RichText? @relation("About_bio", fields: [bioId], references: [id])
-  bioId String?   @map("bio")
+  Bio   RichText? @relation("About_Bio", fields: [BioId], references: [id])
+  BioId String?   @map("Bio")
 
-  @@index([bioId])
+  @@index([BioId])
 }
 
 model RichText {
   id             String  @id @default(cuid())
   RichText       String  @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
-  from_About_bio About[] @relation("About_bio")
+  from_About_Bio About[] @relation("About_Bio")
 }

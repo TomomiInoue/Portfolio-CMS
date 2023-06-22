@@ -332,7 +332,7 @@ input ExperienceCreateInput {
 
 type About {
   id: ID!
-  bio: RichText
+  Bio: RichText
 }
 
 input AboutWhereUniqueInput {
@@ -344,7 +344,7 @@ input AboutWhereInput {
   OR: [AboutWhereInput!]
   NOT: [AboutWhereInput!]
   id: IDFilter
-  bio: RichTextWhereInput
+  Bio: RichTextWhereInput
 }
 
 input AboutOrderByInput {
@@ -352,7 +352,7 @@ input AboutOrderByInput {
 }
 
 input AboutUpdateInput {
-  bio: RichTextRelateToOneForUpdateInput
+  Bio: RichTextRelateToOneForUpdateInput
 }
 
 input RichTextRelateToOneForUpdateInput {
@@ -367,7 +367,7 @@ input AboutUpdateArgs {
 }
 
 input AboutCreateInput {
-  bio: RichTextRelateToOneForCreateInput
+  Bio: RichTextRelateToOneForCreateInput
 }
 
 input RichTextRelateToOneForCreateInput {
